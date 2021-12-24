@@ -75,13 +75,13 @@ const ActionButton = styled(Button)<any>`
   `};
 `;
 
-const ChildComponent = (props: { loading: boolean }) => {
+const ChildComponent = (props: { loading: boolean; text: string }) => {
   return (
     <Box background="bars" pad="xlarge">
       {props.loading ? (
         <Spinner size="medium" color="red" />
       ) : (
-        <Box>{`I'm a child component`}</Box>
+        <Box>{props.text || `I'm a child component`}</Box>
       )}
     </Box>
   );
@@ -121,7 +121,7 @@ export default function CustomUserComponent(
         bgColor="bars"
         tip={props.variables.question1 || "test"}
       />
-      <ChildComponent loading={loading} />
+      <ChildComponent loading={loading} text={props.childText} />
     </Box>
   );
 }
