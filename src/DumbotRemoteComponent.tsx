@@ -5,25 +5,19 @@ import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-interface IBotNodeInteractionLoaderProps {
+interface IBotRemoteNodeProps {
   ports: { [key: string]: string };
   nodeID: string;
   theme: any; //grommet theme definition
   variables: {
     [key: string]: any;
   };
-  customProps?: {
+  onExitNode: (value: any, port: string) => void;
+  onCallHost:  ((hostFunctionName: string, parameters: {
     [key: string]: any;
-  };
-  onSendAttachments: (attachments: any[]) => Promise<void>;
-  onCallHost: (
-    label: string,
-    variables: {
-      [key: string]: any;
-    }
-  ) => Promise<any>;
+}) => Promise<any>) | undefined;
   onSetVariable: (name: string, value: any) => void;
-  onUserAction: (value: any, port: string) => void;
+  csrfToken: string;
   [key: string]: any; // user defined props passed
 }
 
@@ -88,7 +82,7 @@ const ChildComponent = (props: { loading: boolean; text: string }) => {
 };
 
 export default function CustomUserComponent(
-  props: IBotNodeInteractionLoaderProps
+  props: IBotRemoteNodeProps
 ) {
   /* -- readonly -- */
   // lines in gray are readonly and you can't modify them.
@@ -105,7 +99,7 @@ export default function CustomUserComponent(
     }
   }, [loading]);
   const onUserActioncall = () => {
-    props.onUserAction({ test: 123, res, uuid }, props.ports.exit0);
+    props.onExitNode({ test: 123, res, uuid }, props.ports.exit0);
   };
   return (
     <Box background="brand" pad="xlarge">

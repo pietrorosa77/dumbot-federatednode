@@ -49,7 +49,6 @@ const BotProps = {
 
 const BotColors = {
   botBackground: "#cbd2ff",
-  botBubbleColor: "#4a4d70",
   botFontColor: "#fff",
   botUserBubbleColor: "#edeef9",
   botUserFontColor: "#4a4a4a",
@@ -174,20 +173,6 @@ export const BotTheme = deepMerge(base, {
           padding-left: ${props.icon ? "48px" : "5px"};
         }`
         : "";
-    },
-    suggestions: {
-      extend: (props: any) => {
-        const botFocusColor = props.theme.global.colors.botFocusColor;
-        const simpleColor = props.theme.global.colors.botBubbleColor;
-        const fontcolor = props.theme.global.colors.botFontColor;
-        return `
-          color: ${fontcolor};
-          background: ${simpleColor};
-          li: hover {
-            background: ${botFocusColor};
-          }
-        `;
-      },
     },
   },
   notification: {

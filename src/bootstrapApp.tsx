@@ -30,6 +30,7 @@ const App = () => (
       variables={{
         test: "12244",
       }}
+      childText="www"
     />
   </Grommet>
 );
