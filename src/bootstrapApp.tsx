@@ -8,11 +8,8 @@ const App = () => (
   <Grommet full theme={BotTheme}>
     <h1>My React and TypeScript App!! {new Date().toLocaleDateString()}</h1>
     <CustomUserComponent
-      onUserAction={(value: any, port: string) => {
+      onExitNode={(value: any, port: string) => {
         console.log("GETTINMG USER ANSWER FROM BOT", value, port);
-      }}
-      onSendAttachments={async (files: any) => {
-        console.log("GETTINMG FILES FROM BOT", files);
       }}
       onCallHost={async () => {
         const res = await fetch("https://gorest.co.in/public/v1/users");
@@ -31,6 +28,7 @@ const App = () => (
         test: "12244",
       }}
       childText="www"
+      csrfToken="ssss"
     />
   </Grommet>
 );
