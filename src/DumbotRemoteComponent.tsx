@@ -13,9 +13,14 @@ interface IBotRemoteNodeProps {
     [key: string]: any;
   };
   onExitNode: (value: any, port: string) => void;
-  onCallHost:  ((hostFunctionName: string, parameters: {
-    [key: string]: any;
-}) => Promise<any>) | undefined;
+  onCallHost:
+    | ((
+        hostFunctionName: string,
+        parameters: {
+          [key: string]: any;
+        }
+      ) => Promise<any>)
+    | undefined;
   onSetVariable: (name: string, value: any) => void;
   csrfToken: string;
   [key: string]: any; // user defined props passed
@@ -81,9 +86,7 @@ const ChildComponent = (props: { loading: boolean; text: string }) => {
   );
 };
 
-export default function CustomUserComponent(
-  props: IBotRemoteNodeProps
-) {
+export default function CustomUserComponent(props: IBotRemoteNodeProps) {
   /* -- readonly -- */
   // lines in gray are readonly and you can't modify them.
   // the library imported are the ones yu can use for your component
@@ -92,11 +95,16 @@ export default function CustomUserComponent(
   const res = _.chunk(["a", "b", "c", "d"], 2);
   const uuid = nanoid();
   useEffect(() => {
+    let timeout: any = 0;
     if (loading) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         setLoading(false);
       }, 1000);
     }
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
   }, [loading]);
   const onUserActioncall = () => {
     props.onExitNode({ test: 123, res, uuid }, props.ports.exit0);
